@@ -4,7 +4,7 @@
 
 int bubble_sort_1(void *src,long size);
 int bubble_sort_2(void *src,long size);
-int bubble_max(void,long size,long *max);
+int bubble_max(void *src,long size,long *max);
 
 int main(int argc,char **argv)
 {
