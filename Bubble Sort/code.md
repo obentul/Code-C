@@ -14,7 +14,7 @@ int main(int argc,char **argv)
 
     /*求最大值*/
     //bubble_max(a,sizeof(a)/sizeof(long),&max);
-    //printf(“[bubble max] max = %ld\n”,max)；
+    //printf(“[bubble max] max = %ld\n”,max);
 
     /*单向排序*/
     //bubble_sort_1(a,sizeof(a)/sizeof(long));
