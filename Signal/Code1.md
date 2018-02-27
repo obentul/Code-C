@@ -47,8 +47,8 @@ int main (int argc,char ** argv)
         struct sigaction newact,oldact;
 
         memset(&newact,0x00,sizeof(newact));
-        newact.sa_flags = SA_SIGINFO;
-        newact.sa_sigaction = newhandle;
+        newact.sa_flags = SA_SIGINFO;   //想获取siginfo_t必须制定这个flag
+        newact.sa_sigaction = newhandle;
 
         sigaction(SIGSEGV,&newact,&oldact);
 
