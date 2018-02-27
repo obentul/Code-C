@@ -59,19 +59,21 @@ int main (int argc,char ** argv)
 }
 ```
 
-操作：
-gcc 1.c -o 1
-./1 &
-kill -11 [pid of 1]
+操作：  
+gcc 1.c -o 1  
+./1 &  
+kill -11 [pid of 1]  
 
-输出：
-./2() [0x40083f]
-./2() [0x4008e7]
-/lib64/libc.so.6(+0x35650) [0x7ffe9d81f650]
-/lib64/libc.so.6(nanosleep+0x10) [0x7ffe9d8a7470]
-/lib64/libc.so.6(sleep+0xd4) [0x7ffe9d8a7324]
-./2() [0x400978]
-/lib64/libc.so.6(__libc_start_main+0xf5) [0x7ffe9d80baf5]
-./2() [0x400759]
-signo = 11 , siginfo->si_signo = 11 , siginfo->si_pid vs pid = 8281  vs 29525
-
+输出：  
+./2() [0x40083f]  
+./2() [0x4008e7]  
+/lib64/libc.so.6(+0x35650) [0x7ffe9d81f650]  
+/lib64/libc.so.6(nanosleep+0x10) [0x7ffe9d8a7470]  
+/lib64/libc.so.6(sleep+0xd4) [0x7ffe9d8a7324]  
+./2() [0x400978]  
+/lib64/libc.so.6(__libc_start_main+0xf5) [0x7ffe9d80baf5]  
+./2() [0x400759]  
+signo = 11 , siginfo->si_signo = 11 , siginfo->si_pid vs pid = 8281  vs 29525  
+  
+参考：  
+http://www.cnblogs.com/sxhlinux/p/6729384.html
