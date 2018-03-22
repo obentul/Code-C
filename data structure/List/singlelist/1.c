@@ -2,7 +2,7 @@
 
 int main(int argc,char ** argv)
 {
-	struct single_link *tmp;
+	struct single_link *tmp,*new;
 
 	initlink(&tmp,10,0);
 	printflink(tmp);
@@ -15,6 +15,10 @@ int main(int argc,char ** argv)
 	deletenode_by_seq(tmp,1);
 	printflink(tmp);
 	printf("LEN=%d\n",lenlink(tmp));
+
+	reverselink(tmp,&new);
+	printflink(new);
+	
 }
 
 
@@ -194,10 +198,58 @@ out:
 }
 
 
+int destorylink(struct single_link *tmp)
+{
+	int i=1,j;
+	struct single_link *head,*pre;
+	head=tmp;
+
+        if(tmp==NULL) return -1;
+
+        while(tmp->next!=NULL)
+        {
+                tmp=tmp->next;
+                i++;
+        }
+
+	tmp->next=head;	//链表首位相连，防止coredump
+	for(j=0;j<i;j++)
+	{
+		pre=head;
+		head=head->next;
+		free(pre);
+	}
+       return 0;
+}
 
 
+int sortlink_by_value(struct single_link *tmp,struct single_link *new)
+{
+	
+}
 
+int reverselink(struct single_link *tmp,struct single_link **new)
+{
+	struct single_link *a,*b,*s;
 
+	if(tmp==NULL) return -1;
 
+	
+/*	有问题，还需要重新实现
+	s=tmp->next->next;
+	tmp->next->next=tmp;
+	tmp->next=NULL;
+		
+	tmp=tmp->next;
+*/
+	while(tmp->next!=NULL)
+	{
+		s=tmp->next->next;
+		tmp->next->next=tmp;
+		tmp=tmp->next;
+	}
+	
+	*new=tmp;
 
-
+	return 0;
+}
