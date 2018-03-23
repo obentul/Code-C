@@ -4,20 +4,28 @@ int main(int argc,char ** argv)
 {
 	struct single_link *tmp,*new;
 
+	printf("init a link list:\n");
 	initlink(&tmp,10,0);
 	printflink(tmp);
-	printf("LEN=%d\n",lenlink(tmp));
+	//printf("LEN=%d\n",lenlink(tmp));
+	printf("\n");
 
-	insertlink(tmp,1,-1,9);
+	printf("insert a node to the 3rd node's left value=9:\n");
+	insertlink(tmp,3,-1,9);
 	printflink(tmp);
-	printf("LEN=%d\n",lenlink(tmp));
+	//printf("LEN=%d\n",lenlink(tmp));
+	printf("\n");
 
+	printf("delete the first node from link list:\n");
 	deletenode_by_seq(tmp,1);
 	printflink(tmp);
-	printf("LEN=%d\n",lenlink(tmp));
+	printf("\n");
+	//printf("LEN=%d\n",lenlink(tmp));
 
+	printf("reverse the link:\n");
 	reverselink(tmp,&new);
 	printflink(new);
+	printf("\n");
 	
 }
 
@@ -64,10 +72,10 @@ int printflink(struct single_link *tmp)
 
 	while(tmp->next!=NULL)
 	{
-		printf("|%p|%d|%d|----->",tmp->next,tmp->value,tmp->seq);
+		printf("|%p|%d|%d|%p|----->",tmp,tmp->seq,tmp->value,tmp->next);
 		tmp=tmp->next;
 	}
-	printf("|NULL|%d|%d|\n",tmp->value,tmp->seq);
+	printf("|%p|%d|%d|NULL|\n",tmp,tmp->seq,tmp->value);
 }
 
 int lenlink(struct single_link *tmp)
@@ -230,26 +238,29 @@ int sortlink_by_value(struct single_link *tmp,struct single_link *new)
 
 int reverselink(struct single_link *tmp,struct single_link **new)
 {
-	struct single_link *a,*b,*s;
+	struct single_link *s,*pre;
+	int i=0;
 
 	if(tmp==NULL) return -1;
+	pre=NULL;	
 
-	
-/*	有问题，还需要重新实现
-	s=tmp->next->next;
-	tmp->next->next=tmp;
-	tmp->next=NULL;
-		
-	tmp=tmp->next;
-*/
 	while(tmp->next!=NULL)
 	{
-		s=tmp->next->next;
-		tmp->next->next=tmp;
-		tmp=tmp->next;
+		s=tmp->next;
+		tmp->next=pre;
+		pre=tmp;
+		tmp=s;
 	}
-	
+
+	tmp->next=pre;
 	*new=tmp;
+
+        while(tmp->next!=NULL)
+        {
+               tmp->seq=++i;
+                tmp=tmp->next;
+        }
+        tmp->seq=++i;
 
 	return 0;
 }
