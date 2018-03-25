@@ -34,7 +34,7 @@ int initlink(struct single_link **out,int total,int value)
 {
 	struct single_link *head,*tmp;
 	int i;	
-	//head node
+	//head ptr
 	head = (struct single_link *)malloc(sizeof(struct single_link));
 	if(head == NULL)
 		{
@@ -72,10 +72,11 @@ int printflink(struct single_link *tmp)
 
 	while(tmp->next!=NULL)
 	{
-		printf("|%p|%d|%d|%p|----->",tmp,tmp->seq,tmp->value,tmp->next);
+		printf("|~%p-~|%d|%d|%p|===>",tmp,tmp->seq,tmp->value,tmp->next);
 		tmp=tmp->next;
 	}
-	printf("|%p|%d|%d|NULL|\n",tmp,tmp->seq,tmp->value);
+	printf("|~%p~|%d|%d|%p|\n",tmp,tmp->seq,tmp->value,tmp->next);
+	return 0;
 }
 
 int lenlink(struct single_link *tmp)
@@ -114,8 +115,12 @@ int insertlink(struct single_link *tmp,int seq,int orient,int value)
 	{
 		addr=tmp->next;
 		tmp->next=(struct single_link *)malloc(sizeof(struct single_link));
+			if(tmp->next==NULL)
+					{
+						printf("malloc error");
+						return -1;
+					}
 		tmp->next->value=value;
-		tmp->next->seq=0;
 		tmp->next->next=addr;
 	}
 	
@@ -125,6 +130,11 @@ int insertlink(struct single_link *tmp,int seq,int orient,int value)
 		{	
 			addr=tmp->next;// 2号节点的地址
 			tmp->next=(struct single_link *)malloc(sizeof(struct single_link));	//一号节点指向新节点
+					{
+						printf("malloc error");
+						return -1;
+					}
+			//这里并不是在一号节点左侧加一个，二是在右侧加一个，然后交换一下值，这样的好处在于使用原有链表地址即可，不改变链表头结点地址
 			tmp->next->value=tmp->value;	//一号节点的值给新节点
 			tmp->value=value;		//新值给一号节点
 			tmp->next->next=addr;	//二号节点的地址给新节点
@@ -133,8 +143,11 @@ int insertlink(struct single_link *tmp,int seq,int orient,int value)
 		
 		addr=tmp;
 		pre->next=(struct single_link *)malloc(sizeof(struct single_link));
+					{
+						printf("malloc error");
+						return -1;
+					}	
 		pre->next->value=value;
-		pre->next->seq=0;
 		pre->next->next=addr;
 	}
 
