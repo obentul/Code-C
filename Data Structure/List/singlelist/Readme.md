@@ -21,3 +21,5 @@ int reverselink(struct single_link *tmp,struct single_link **new);	//翻转链�
 int deletenode_by_value(struct single_link *tmp,int value);	//删除所有值为value的节点
 int sortlink(struct single_link *tmp,struct single_link *new,int orient);	//按value值的大小重新排序,orient为正,则从大到小,负从小到大,0刷新序列
 
+- 2.c 第二版
+
