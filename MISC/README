@@ -1,0 +1,2 @@
+#1  atexit.c
+	Everytime a program run off, before totally end up,it will execute a list of functions(32 registered functions at most),we can register the our self-defined function into the to-be-ran function list with atexit function.
