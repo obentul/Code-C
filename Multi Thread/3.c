@@ -26,7 +26,7 @@ void thread1_func(void)
 {
         char *ret="thread1 recorder exit\n";
         printf("i am the recorder\n");
-        pthread_cleanup_push(thread1.cleanup[0],"first cleanup");
+        pthread_cleanup_push(thread1.cleanup[0],"first cleanup");       //push和pop必须成对出现，不然编译不通过
         pthread_cleanup_pop(0);
         pthread_exit(ret);
 }
