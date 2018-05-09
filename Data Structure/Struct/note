@@ -1,0 +1,29 @@
+#1 如果某个结构体先使用后定义了，那么会在编译时报错，因为编译器无法预先知道在符号表中有这个符号，所以结构体和函数一样，有时候需要
+   在文件首部做一个声明，比如：
+   struct bearer{
+      int addr;
+      char * desc;
+   }
+   struct media{
+      struct bearer b;
+      char * desc;
+   }
+   上面这个是OK的，下面这个不行：
+   struct media{
+      struct bearer b;
+      char * desc;
+   }
+   struct bearer{
+      int addr;
+      char * desc;
+   }
+   需要先声明下，就可以了：
+   struct bearer；
+   struct media{
+      struct bearer b;
+      char * desc;
+   }
+   struct bearer{
+      int addr;
+      char * desc;
+   }
