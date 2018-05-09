@@ -27,3 +27,27 @@
       int addr;
       char * desc;
    }
+   如果出现了二者互相引用，比如：
+   struct media{
+      struct bearer b;
+      char * desc;
+      void (* func)(struct bearer *);
+   }
+   struct bearer{
+      int addr;
+      char * desc;
+      void (* func)(struct media *);
+   }
+   那么把二者都声明下：
+   struct media；
+   struct bearer；
+   struct media{
+      struct bearer b;
+      char * desc;
+      void (* func)(struct bearer *);
+   }
+   struct bearer{
+      int addr;
+      char * desc;
+      void (* func)(struct media *);
+   }
