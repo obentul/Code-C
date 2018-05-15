@@ -1,4 +1,4 @@
-/*使用： ./2 源文件 目标文件 线程数
+/*使用： ./2 源文件 目标文件 线程数 缓冲区尺寸
 */
 #include <stdio.h>
 #include <unistd.h>
@@ -10,6 +10,7 @@
 
 int fd_src;
 int fd_des;
+int buff_size;
 pthread_mutex_t flag; //资源锁，拿锁者有写权限
 
 
@@ -17,8 +18,8 @@ pthread_mutex_t flag; //资源锁，拿锁者有写权限
 void cp(void)
 {
     int cnt =0;
-    char buff[10];
-    memset(buff,0x00,10);
+    char buff[buff_size];
+    memset(buff,0x00,buff_size);
 
     while(1)
     {
@@ -44,7 +45,7 @@ void do_job(int thread_num)
     {
         pthread_create(&tid[thread_num],NULL,(void *)cp,NULL);
     }
-    sleep(5); //等待子线程执行完
+    sleep(10); //等待子线程执行完
 }
 
 
@@ -57,13 +58,14 @@ int main(int argc,char ** argv)
 
     pthread_mutex_init(&flag,NULL);
 
-    if(argc!=4)
+    if(argc!=5)
     {
-        printf("argu num must be 4\n");
+        printf("argu num must be 5\n");
         return -1;
     }
 
     thread_num = atoi(argv[3]);
+    buff_size = atoi(argv[4]);
     src_path=(char *)malloc(sizeof(argv[1]));
     des_path=(char *)malloc(sizeof(argv[2]));
     memcpy(src_path,argv[1],sizeof(argv[1]));
@@ -86,6 +88,6 @@ int main(int argc,char ** argv)
         }
 
     do_job(thread_num);
-    pthread_mutex_destory(&flag);
+    //pthread_mutex_destory(&flag);
     return 0;
 }
