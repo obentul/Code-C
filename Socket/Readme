@@ -1,0 +1,5 @@
+Client.c   ：  多线程客户端demo                        用法:./C 127.0.0.1 6666 10
+PROJ	   ：  拟自建多线程并发网络服务器
+NOTE	   ：  笔记(内含可用的服务器代码)
+Server1.c  ：  使用select的服务端
+Server2.c  ：  使用epoll的服务端

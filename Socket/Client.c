@@ -57,7 +57,7 @@ void dosth(void)
 void conn(void)
 {
   int ret;
-  ret=connect(sock_fd,(struct sockaddr *)&serv_addr,len);
+  ret=connect(sock_fd,(struct sockaddr *)&serv_addr,sizeof(struct sockaddr));
   if(ret<0)
     {
       printf("unable to connect %s:%d\n",ip,port);
