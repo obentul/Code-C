@@ -1,3 +1,5 @@
+//功能描述：在5s内轮询产生的随机数(1s生产一个随机数)，判断随机数是不是100的整数倍，如果是，则输出定时器剩余时间，如果不是，继续
+
 #include <stdio.h>
 #include <signal.h>
 #include <stdlib.h>
