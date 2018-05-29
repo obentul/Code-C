@@ -3,3 +3,4 @@ PROJ	   ：  拟自建多线程并发网络服务器
 NOTE	   ：  笔记(内含可用的服务器代码)
 Server1.c  ：  使用select的服务端
 Server2.c  ：  使用epoll的服务端
+select	   :   select版本的多线程模型，c和s都有独立的代码(其中包含了一个使用select会造成cpu占用过高的问题及问题解答)
