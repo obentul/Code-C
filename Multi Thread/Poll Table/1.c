@@ -1,3 +1,10 @@
+/*说明：1.创建一个内存表Table，有N个Node组成，Node节点为链表
+ *      2.主线程每1秒向Table中增加一个Node到尾部(监听进程accept每返回一次，就把返回值填入链表)
+ *      3.创建N个线程的线程池，
+ *
+ *
+ * */
+
 #include <pthread.h>
 
 #define DEEPTH 20	//线程池的深度
@@ -8,8 +15,8 @@ struct Node *tablehead;
 struct Node;
 
 struct Node{
-	pthread_mutex_t avail;
-	int fd;
+	pthread_mutex_t avail;	//当前节点是否已经被锁上
+	int fd;	
 	struct Node *next=NULL;
 };
 
@@ -17,24 +24,23 @@ struct Table{
 	int total=INIT;	//总条目数
 	int dirty;	//当前已使用的Node数
 
-	struct Node *node_1st;	//500个条目供轮询
+	struct Node *node_1st;	//首节点
 
-	pthread_mutex_t lock;
+	pthread_mutex_t lock;  
 }table1;
 
 int main(int argc,char ** argv)
 {
 	int j;
-
-	//1.初始化被扫表
 	memset(&table1,0x00,sizeof(struct Table));
 	
-
+	//1.初始化INIT个Node的Table
 	for(j=0;j<table1.total-1;j++)
 	{
 		struct Node *tmp;
 		tmp = malloc(sizeof(struct Node));
-		memset();
+		memset(tmp,0x00,sizeof(struct Node));
+		tmp->next==NULL;
 	}
 	
 	//2.创建线程池
