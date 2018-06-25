@@ -45,7 +45,8 @@
          st1.thread_tid=0;
          st1.thread_ret=NULL;
          st1.thread_desc="first job\n";
-         st1.args=&st1;  //把自己的结构体地址作为参数，以方便使用各种函数(这样设计很合理)
+         /*把自己的结构体地址作为参数，以方便使用各种函数(这样设计很合理)*/
+         st1.args=&st1;
          st1.cleanup_args[0]=&cleanup_args_0;
          st1.cleanup_args[1]=&cleanup_args_1;
 
@@ -53,7 +54,7 @@
          st1.thread_cleanup[0]=do_cleanup_0;
          st1.thread_cleanup[1]=do_cleanup_1;
 
-         //通过最后一个参数给线程传参，这里不用考虑主线程栈和子线程栈独立的问题，这个设计很好，不知道底层是如何实现的？
+         /*通过最后一个参数给线程传参，这里不用考虑主线程栈和子线程栈独立的问题，这个设计很好，不知道底层是如何实现的？*/
          pthread_create(&st1.thread_tid,NULL,(void *)st1.thread_func,st1.args); 
 
          pthread_join(st1.thread_tid,&st1.thread_ret);
