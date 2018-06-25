@@ -9,6 +9,9 @@
 
 #define CLEANUP_MAX 3
 
+int lock_read(int fd,void *buf,size_t count,pthread_mutex_t *mutex);
+int lock_write(int fd,void *buf,size_t count,pthread_mutex_t *mutex);
+
 struct thread_stu;
 
 typedef void vvx_func(void *args);   //入参void，返回void *
