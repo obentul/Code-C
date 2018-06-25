@@ -1,57 +1,117 @@
-/*说明：1.创建一个内存表Table，有N个Node组成，Node节点为链表
- *      2.主线程每1秒向Table中增加一个Node到尾部(监听进程accept每返回一次，就把返回值填入链表)
- *      3.创建N个线程的线程池，
- *
- *
- * */
+/* 1个TABLE，内含DEF_NODE_NUM个NODE。主线程循环填充NODE(大于DEF_NODE_NUM则停止填充，等待有空闲的节点)。子线程轮询TABLE内的每一个节点，找到
+*  未被上锁的节点，加锁，读取其中的内容，完成一系列工作，然后标注节点为空闲并释放锁，接着继续轮询。
+*
+*/
 
-#include <pthread.h>
 
-#define DEEPTH 20       //线程池的深度
-#define INIT 500        //初始节点数为500
+#include "mythread.h"
 
-struct Node *tablehead;
-
-struct Node;
+#define DEF_NODE_NUM 500
+#define DEF_THREAD_NUM 20
 
 struct Node{
-        pthread_mutex_t avail;  //当前节点是否已经被锁上
-        int fd;
-        struct Node *next=NULL;
-};
+        /*protected this node*/
+        pthread_mutex_t available;
+
+        /*value*/
+        int rfd;        //>0可用,-1不可用
+        int wfd;
+
+        /*node next*/
+        struct Node * next;     //目前没用到，暂时保留
+}
 
 struct Table{
-        int total=INIT; //总条目数
-        int dirty;      //当前已使用的Node数
+        
+        struct Node[DEF_NUM]; //默认500个节点
+}TB1;
 
-        struct Node *node_1st;  //首节点
-
-        pthread_mutex_t lock;
-}table1;
 
 int main(int argc,char ** argv)
 {
-        int j;
-        memset(&table1,0x00,sizeof(struct Table));
+        int i;
+        struct thread_stu st[DEF_THREAD_NUM];
 
-        //1.初始化INIT个Node的Table
-        for(j=0;j<table1.total-1;j++)
+
+        memset(st,0x00,DEF_THREAD_NUM*sizeof(struct thread_stu));
+
+        /*Thread Poll*/
+        for(i=0;i<DEF_THREAD_NUM;i++)
         {
-                struct Node *tmp;
-                tmp = malloc(sizeof(struct Node));
-                memset(tmp,0x00,sizeof(struct Node));
-                tmp->next==NULL;
+                st[i].thread_id=0;
+                st[i].thread_ret=NULL;
+                st[i].thread_desc=NULL;
+                st[i].args=&st[i];
+                st[i].thread_func=consumer;
+
+                pthread_create(st[i].thread_tid,NULL,st[i].thread)func,st[i].args);
         }
 
-        //2.创建线程池
-        for(i=0;i<DEEPTH;i++)
+        producer();
 
-        //3.每隔1秒填表一次
-        if(1)
+}
+
+void producer(void)
+{
+
+}
+
+void* consumer(void *args)
+{
+        char buf[8192];
+        int i=0,ret,n;
+        pthread_detach(pthread_self());
+
+        again:
+        /*锁住节点*/
+        ret = pthread_mutex_trylock(&(TB1.Node[i].available));
+        if((ret == 0) && (TB1.Node[i].rfd!=-1))
         {
-                fill();
-                sleep(1);
+                /*从文件描述符中读数据*/
+                again1:
+                n=read(TB1.Node[i].rfd,buf,8192);
+                if((n!=0)&&(n!=-1))
+                {
+                        i=i+n;
+                        goto again;
+                }
+                else if(n==0)
+                {
+                        i=0;
+                        printf("read done\n");
+
+                        /*处理消息*/
+                        workwork();
+
+                        /*写回rfd*/
+                        write();
+                }
+                else
+                {
+                        pthread_mutex_unlock(&(TB1.Node[i].available));
+                        perror("read error");
+                        return -1;
+                }
+        }
+        pthread_mutex_unlock(&(TB1.Node[i].available));
+
+        /*节点不可用，向下轮询*/
+        else
+        {
+                if(i==DEF_NODE_NUM)
+                {
+                        i=0;
+                }
+                else
+                {
+                        i++;
+                }
+                goto again;
         }
 
+}
+
+void workwork(void)
+{
 
 }
