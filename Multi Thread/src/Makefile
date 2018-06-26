@@ -1,12 +1,12 @@
-exe=main1
-all:main1
-main1:main1.c
-  gcc -pthread -g main1.c -I../include -o main1
-lib:mythread.o
-  gcc -c -pthread -g main1.c -I../include -o mythread.o
+exe=demo1
+all:demo1
+demo1:demo1.c
+	gcc -pthread -g demo1.c -I../include -o demo1
+lib:mythread.c
+	gcc -c -pthread -g demo1.c -I../include -o mythread.o
 clean:
-  rm -rf ${exe}
-  rm -rf ../lib/*
+	rm -rf ${exe}
+	rm -rf ../lib/*
 install:
-  mv main1 ../exe
-  mv mythread.o ../lib
+	mv demo1 ../exe
+	mv mythread.o ../lib

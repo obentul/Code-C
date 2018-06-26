@@ -20,6 +20,7 @@ typedef void vv_func(void args);   //入参void，返回void
 
 struct thread_stu{
         pthread_t thread_tid;           //线程id
+	int thread_workid;			//线程池场景中，方便观察的线程工号
         void *thread_ret;               //返回值
         char *thread_desc;              //线程描述
         struct thread_stu *args;                        //创建线程入参
