@@ -1,6 +1,10 @@
 /* 1个TABLE，内含DEF_NODE_NUM个NODE。主线程循环填充NODE(如果所有节点都已经处于被消费状态，则主线程循环查找填充的节点，绝不覆盖)。
 *  子线程轮询TABLE内的每一个节点，找到未被上锁的节点，加锁，读取其中的内容，完成一系列工作，然后标注节点为空闲并释放锁，接着继续轮询。
 *
+*  这个模型有一个弊端：消费者和生产者都在不停地轮询所有节点，这样势必会造成极其负荷过大，如果把sleep 1注释掉，可以发先CPU占用率瞬间就到200%+了
+*  		       效率虽然高，但是耗资源。(即使有sleep 1，CPU占用也会轻松突破100%，这个模型不建议使用)
+*  		       在CondPool中，通过条件变量的形式，让消费者处于等待通知状态，这样的话，或多或少节约了CPU资源，防止忙等的情况产生，但是效率会低一点
+*
 */
 
 #include "mythread.h"
@@ -98,7 +102,7 @@ void producer(void)
            {
 				i++;
            }
-		   //sleep(1); //睡1s后继续执行
+           sleep(1); //可以注释掉，以观察最极端的并发情况
            goto again_producer;
         }
 	}
@@ -142,7 +146,7 @@ void* consumer(void *args)
            {
 				i++;
            }
-		   //sleep(1);
+		sleep(1);
            goto again_consumer;
         }
 	}
@@ -182,7 +186,7 @@ int workwork_1(int fd)
 void workwork_2(int fd,int index,struct thread_stu* args)
 {
 	printf("WORKID[%d],get node index = [%d],rfd is [%d],thread#[%ld]\n",args->thread_workid,index,fd,pthread_self());
-	sleep(1);
+	sleep(1);	//sleep 1为占位符，代表业务代码，可以把这行注释掉，这样得到的就是此模型的最快处理速率
 }
 
 
