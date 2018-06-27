@@ -1,7 +1,5 @@
-#1 调整所有现有代码为doublelist的目录架构，所有demo lib化
-
-#2 多线程编程增加案例
-
-#3 从内核层面理解互斥量，并完善demo
-
-#4 UNP结束
+#1 - 从内核层面理解互斥量，并完善demo
+#2 - IO
+#3 - Multi Process/RecordLock.c
+#4 - Multi Thread/Log
+#5 - Multi Thread/AdvancedUse
