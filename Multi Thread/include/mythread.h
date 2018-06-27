@@ -16,7 +16,7 @@ struct thread_stu;
 
 typedef void vvx_func(void *args);   //入参void，返回void *
 typedef void* vxvx_func(void *args);   //入参void*，返回void *
-typedef void vv_func(void args);   //入参void，返回void
+typedef void vv_func(void);   //入参void，返回void
 
 struct thread_stu{
         pthread_t thread_tid;           //线程id
