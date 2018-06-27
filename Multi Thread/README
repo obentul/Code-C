@@ -1,4 +1,0 @@
-src/main1.c ：线程的创建，回收
-Copy File/  ：多线程拷贝文件
-Thread Pool/：线程池
-
