@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <unistd.h>
 
 /* 如果想在字符串里在此引用x，那么需要使用"#x"来替代即可
  *
@@ -13,4 +14,6 @@ int main()
 {
 	PRINT_SQU_0(2);	//  x -> "x" de pingfang = 4
 	PRINT_SQU_1(2); //  x -> 2 de pingfang = 4
+
+	while(1) sleep(1);
 }
