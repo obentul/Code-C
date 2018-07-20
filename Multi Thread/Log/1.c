@@ -1,3 +1,7 @@
+/* LOG_BUFF_SIZE尺寸必须足够大，不然缓冲区一满就会刷入文件中，这样日志就会很乱
+ * LOG_BUFF_SIZE一定要大于一次业务的日志量
+ * */
+
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -36,7 +40,7 @@ void* job(void)
     		fprintf(log_p,"+++++++++++++++++++++++++end     [%d]+++++++++++++++++++++++++++\n",getpid());
     		ch='A';
 		fflush(log_p);
-   		 sleep(1);
+   		sleep(1);
 	}
 }
 
