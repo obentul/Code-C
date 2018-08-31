@@ -11,15 +11,15 @@ int main(int argc,char **argv)
     long size,i;
     long a[]={1,2,3,1235,8873,111,1112,23,99,47,9627,56,1,13,2,3,985,'a','3'};
 
-    /*求最大值*/
-    //bubble_max(a,sizeof(a)/sizeof(long),&max);
-    //printf(“[bubble max] max = %ld\n”,max);
+    //求最大值
+   //bubble_max(a,sizeof(a)/sizeof(long),&max);
+   //printf(“[bubble max] max = %ld\n”,max);
 
-    /*单向排序*/
-    //bubble_sort_1(a,sizeof(a)/sizeof(long));
+    //单向排序
+   //bubble_sort_1(a,sizeof(a)/sizeof(long));
   
-    /*双向排序*/
-    bubble_sort_2(a,sizeof(a)/sizeof(long));
+   //双向排序
+   bubble_sort_2(a,sizeof(a)/sizeof(long));
   
     printf("[bubble sort]:");
     for(i=0;i<sizeof(a)/sizeof(long);i++)
@@ -80,11 +80,11 @@ int bubble_sort_2(void *src,long size)
     {
         if(*p>*(p+1))
         {
-            exchange=*(p+1);
+        exchange=*(p+1);
             *(p+1)=*p;
-            *p=exchange;
-            //反向冒泡
-            q=p;
+      *p=exchange;
+      //反向冒泡
+      q=p;
             for(k=i;k>0;k--)
             {
                 if(*q<*(q-1))
