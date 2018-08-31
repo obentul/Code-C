@@ -33,7 +33,7 @@ int main(int argc,char **argv)
     }  
 }
 
-/*单向冒泡*/
+//单向冒泡
 int bubble_sort_1(void *src,long size)
 {
     long *p;
@@ -66,7 +66,7 @@ int bubble_sort_1(void *src,long size)
     return 0;
 }
 
-/*双向冒泡*/
+//双向冒泡
 int bubble_sort_2(void *src,long size)
 {
     long *p;
@@ -101,7 +101,7 @@ int bubble_sort_2(void *src,long size)
     return 0;
 }
 
-/*冒泡法求最大值*/
+//冒泡法求最大值
 int bubble_max(void *src,long size,long *max)
 {
     long exchange;
