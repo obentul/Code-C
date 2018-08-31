@@ -1,4 +1,3 @@
-```
 #include <stdio.h>
 #include <unistd.h>
 
@@ -130,7 +129,7 @@ int bubble_max(void *src,long size,long *max)
     *max=*q;
     return 0;
 }
-```
+
 
 
 
