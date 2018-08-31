@@ -1,3 +1,5 @@
+//说明：如何在预编译语句中使用被预编译的对象值
+
 #include <stdio.h>
 #include <unistd.h>
 

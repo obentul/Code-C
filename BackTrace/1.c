@@ -1,9 +1,10 @@
-可通过如下代码输出调用栈信息：  
+//可通过如下代码输出调用栈信息：
 
-```
 #include <execinfo.h>
+#include <unistd.h>
+#include <stdlib.h>
 
-void backtrace(void)
+void bt(void)
 {
      int j, nptrs;
      #define SIZE 100
@@ -13,8 +14,8 @@ void backtrace(void)
      nptrs = backtrace(buffer, SIZE);
      printf("backtrace() returned %d addresses\n", nptrs);
 
-     /* The call backtrace_symbols_fd(buffer, nptrs, STDOUT_FILENO)
-        would produce similar output to the following: */
+     // The call backtrace_symbols_fd(buffer, nptrs, STDOUT_FILENO)
+     //     would produce similar output to the following:
 
      strings = backtrace_symbols(buffer, nptrs);
      if (strings == NULL) {
@@ -27,4 +28,22 @@ void backtrace(void)
 
      free(strings);
 }
-```
+
+void func2()
+{
+	bt();
+	while(1) sleep(1);
+}
+
+void func1()
+{
+	func2();
+}
+
+
+int main(int argc,char ** argv)
+{
+	func1();
+}
+
+

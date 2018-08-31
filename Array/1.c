@@ -1,3 +1,5 @@
+//遍历二维数组
+
 #include <stdio.h>
 
 int a[3][24]={

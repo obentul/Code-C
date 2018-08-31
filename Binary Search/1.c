@@ -1,3 +1,6 @@
+//使用方法：make
+//		./1 
+
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -13,17 +16,24 @@ int main(int argc,char **argv)
 	long *ap=a;
 	size=sizeof(a)/sizeof(long);
 
+	printf("in main() , address of a is %p\n",a);
+
 	//is
 	result = binary_search(a,size,70);
+	if(result!=-1)
+	{printf("70 is in\n");}
+	else
+	{printf("70 is not in\n");}
+
 	
 	sleep(1);
 	
 	result = binary_search(a,size,89);
 	
 	if(result!=-1)
-	{printf("in\n");}
+	{printf("89 is in\n");}
 	else
-	{printf("not in\n");}
+	{printf("89 is not in\n");}
 
 	return 0;
 }
@@ -43,6 +53,10 @@ long binary_search(long *collection,long size,long test)
 	long *p;
 	long location;
 	long ret;
+
+
+	printf("in binary_search() , address of a is %p\n",collection);
+
 
 	location = size/2;
 
