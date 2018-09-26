@@ -1,0 +1,15 @@
+#1 -- enum类型的遍历
+	enum enumtype{
+		1st,
+		2nd,
+		3rd,
+		4th,
+		5th,
+		total	//在枚举类型的最后添加一条，作为总计
+	};
+	enum enumtype counter;
+	
+	for(int i;i<counter.total;i++)
+	{
+		....
+	}
