@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define LOG_PATH "./1.log"
+#define LOG_PATH "./2.log"
 #define LOG_BUFF_SIZE 8192
 
 char LOG_BUFF[LOG_BUFF_SIZE];
