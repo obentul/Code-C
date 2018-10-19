@@ -1,4 +1,4 @@
-#1 -- enum类型的遍历
+#1 -- enum类型的遍历技巧
 	enum enumtype{
 		1st,
 		2nd,
