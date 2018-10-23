@@ -64,5 +64,6 @@ void conn(void)
       printf("unable to connect %s:%d\n",ip,port);
       exit(-1);
     }
+  printf("connect return ret = %d\n",ret);
   dosth();
 }
