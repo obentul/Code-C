@@ -16,7 +16,7 @@ struct point start_point;
 
 #define XX 11
 #define YY 12
-#define LOCATE(y,x) (x*YY+y)
+#define LOCATE(x,y) (x*YY+y)
 
 char map[XX*YY]={};
 char BUFFER[2048];
@@ -97,12 +97,12 @@ void disp_map(){
 }
 
 int locate_map(struct point *tmp){
-    int x1=tmp->x-(XX-1)/2;      //x1是数组坐标系的x
-    int y1=tmp->y+(YY-1)/2;       //y1是数组坐标系的y
+    int x1=tmp->y-(XX-1)/2;      //x1是数组坐标系的x
+    int y1=tmp->x+(YY-1)/2;       //y1是数组坐标系的y
     char show=tmp->show;    
-    
-    char locate = LOCATE(x1,y1);
 
+	int locate = LOCATE(x1,y1);
+	
     map[locate]=show;
 
     return 1; 
@@ -140,6 +140,7 @@ void go_left(int steps){
     }
     locate_map(p_p);
 }
+
 void go_right(int steps){
     int i;
     struct point *p_p;
