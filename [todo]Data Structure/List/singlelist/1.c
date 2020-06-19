@@ -251,7 +251,8 @@ int sortlink_by_value(struct single_link *tmp,struct single_link *new)
 
 int reverselink(struct single_link *tmp,struct single_link **new)
 {
-	struct single_link *s,*pre;
+	struct single_link *rest;	//链表剩余部分的首节点
+	struct single_link *pre;	//暂存上一个节点
 	int i=0;
 
 	if(tmp==NULL) return -1;
@@ -259,10 +260,10 @@ int reverselink(struct single_link *tmp,struct single_link **new)
 
 	while(tmp->next!=NULL)
 	{
-		s=tmp->next;
-		tmp->next=pre;
-		pre=tmp;
-		tmp=s;
+		rest=tmp->next;		//暂存当前指向节点的下一个节点，即列表剩余部分的首节点
+		tmp->next=pre;		//翻转指向，让当前节点指向自己的上一个节点
+		pre=tmp;		//调整处理位置：当前节点被标记为上一个节点
+		tmp=rest;		//调整处理位置：剩余列表的首节点被标记为当前节点
 	}
 
 	tmp->next=pre;
